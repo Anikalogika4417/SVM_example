@@ -15,3 +15,15 @@ images_and_lables = list(zip(digits.images, digits.target))
 #plt.show()
 
 data = digits.images.reshape((len(digits.images), -1))
+
+
+classifier = svm.SVC(gamma=0.001)
+
+train_test_split = int(len(digits.images) * 0.75)
+classifier.fit(data[:train_test_split], digits.target[:train_test_split])
+
+expected = digits.target[train_test_split:]
+prediction = classifier.predict(data[train_test_split:])
+
+print(confusion_matrix(expected, prediction))
+print(accuracy_score(expected, prediction))
